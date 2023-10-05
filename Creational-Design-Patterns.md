@@ -205,3 +205,34 @@ request.allHTTPHeaderFields = ["Content-Type": "application/json"]
 request.httpBody = Data()
 ```
 Explanation: In this code, we are using the builder pattern to create a URLRequest. We initialize a basic request and then set its attributes step by step.
+
+# Prototype
+It's like making a photocopy of an existing object. You create a new object by copying an existing one.
+```
+struct User {
+    var username: String
+    var email: String
+}
+
+// Create a prototype user
+let originalUser = User(username: "john_doe", email: "john@example.com")
+
+// Clone the prototype to create a new user
+let copiedUser = originalUser
+
+// Modify the copied user (it won't affect the original)
+copiedUser.username = "jane_doe"
+
+// Output the original and copied users
+print("Original User: \(originalUser.username), \(originalUser.email)")
+print("Copied User: \(copiedUser.username), \(copiedUser.email)")
+
+```
+We define a User struct with two properties: username and email. This User struct serves as our prototype.
+We create an originalUser instance with some initial values.
+To create a new user, we simply assign originalUser to copiedUser. This is a shallow copy, and both originalUser and copiedUser will initially have the same values.
+We modify the copiedUser by changing its username to "jane_doe."
+Finally, we print the username and email properties of both the original and copied users.
+
+
+Prototype pattern, where you create a new object by copying an existing one. Keep in mind that in more complex scenarios, you may need to perform a deep copy to avoid unintended sharing of mutable properties between the original and copied objects.
