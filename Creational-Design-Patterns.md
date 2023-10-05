@@ -71,7 +71,7 @@ let buttonView = createView(type: "Button")
 ```
 In this example, the createView function acts as a factory method. It takes a parameter type and returns a different type of UIView based on the input.
 
-Native Example: UIButton
+Native Example: UIView
 
 ```
 import UIKit
@@ -85,4 +85,55 @@ button.frame = CGRect(x: 100, y: 100, width: 200, height: 40)
 view.addSubview(button)
 
 ```
-Explanation: In this code, UIButton(type:) is a factory method provided by UIKit. It creates a UIButton with a specific style (e.g., .system, .roundedRect, etc.).
+Explanation: UIView is a factory for creating different types of views like labels, buttons, and image views. You call methods like UILabel() or UIButton() to create instances of specific view types.
+
+# Abstract Factory: 
+Provides an interface for creating families of related or dependent objects without specifying their concrete classes.
+```
+import UIKit
+
+// Abstract factory for creating fonts
+protocol FontFactory {
+    func createFont() -> UIFont
+}
+
+// Concrete factory for system fonts
+class SystemFontFactory: FontFactory {
+    func createFont() -> UIFont {
+        return UIFont.systemFont(ofSize: 14.0)
+    }
+}
+
+// Concrete factory for custom fonts
+class CustomFontFactory: FontFactory {
+    func createFont() -> UIFont {
+        return UIFont(name: "CustomFont", size: 16.0) ?? UIFont.systemFont(ofSize: 16.0)
+    }
+}
+
+// Usage:
+let systemFontFactory = SystemFontFactory()
+let customFontFactory = CustomFontFactory()
+
+let systemFont = systemFontFactory.createFont()
+let customFont = customFontFactory.createFont()
+
+```
+In this example, we define an abstract factory FontFactory with a method createFont(). Two concrete factories (SystemFontFactory and CustomFontFactory) implement this protocol to create different types of fonts.
+
+Native Example: UIFont and UIColor
+
+```
+import UIKit
+
+// Abstract factory for creating fonts
+let systemFont = UIFont.systemFont(ofSize: 16.0)
+let customFont = UIFont(name: "CustomFont", size: 16.0) ?? UIFont.systemFont(ofSize: 16.0)
+
+// Abstract factory for creating colors
+let redColor = UIColor.red
+let customColor = UIColor(displayP3Red: 0.2, green: 0.4, blue: 0.6, alpha: 1.0)
+
+
+```
+Explanation: In this code, UIFont.systemFont(ofSize:) and UIFont(name:size:) are abstract factories for creating fonts with different styles. Similarly, UIColor provides various factory methods for creating colors.
