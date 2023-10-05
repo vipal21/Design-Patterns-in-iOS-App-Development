@@ -137,3 +137,71 @@ let customColor = UIColor(displayP3Red: 0.2, green: 0.4, blue: 0.6, alpha: 1.0)
 
 ```
 Explanation: In this code, UIFont.systemFont(ofSize:) and UIFont(name:size:) are abstract factories for creating fonts with different styles. Similarly, UIColor provides various factory methods for creating colors.
+
+# Builder
+This is like a step-by-step process to build a complex object, like building a custom computer by choosing the processor, memory, and other components one by one.
+```
+import Foundation
+
+class RequestBuilder {
+    private var url: URL?
+    private var method: String = "GET"
+    private var headers: [String: String] = [:]
+    private var body: Data?
+
+    func setURL(_ url: URL) -> RequestBuilder {
+        self.url = url
+        return self
+    }
+
+    func setMethod(_ method: String) -> RequestBuilder {
+        self.method = method
+        return self
+    }
+
+    func setHeaders(_ headers: [String: String]) -> RequestBuilder {
+        self.headers = headers
+        return self
+    }
+
+    func setBody(_ body: Data) -> RequestBuilder {
+        self.body = body
+        return self
+    }
+
+    func build() -> URLRequest {
+        guard let url = self.url else {
+            fatalError("URL is required to build the request.")
+        }
+        var request = URLRequest(url: url)
+        request.httpMethod = method
+        request.allHTTPHeaderFields = headers
+        request.httpBody = body
+        return request
+    }
+}
+
+// Usage:
+let url = URL(string: "https://example.com")!
+let request = RequestBuilder()
+    .setURL(url)
+    .setMethod("POST")
+    .setHeaders(["Content-Type": "application/json"])
+    .setBody(Data())
+    .build()
+
+```
+In this example, RequestBuilder follows the Builder pattern to construct a URLRequest. You can chain methods to set different attributes of the request, and then call build() to create the final request.
+
+Native Example: UIFont and UIColor
+
+```
+import Foundation
+
+// Builder pattern for creating a URLRequest
+var request = URLRequest(url: URL(string: "https://example.com")!)
+request.httpMethod = "POST"
+request.allHTTPHeaderFields = ["Content-Type": "application/json"]
+request.httpBody = Data()
+```
+Explanation: In this code, we are using the builder pattern to create a URLRequest. We initialize a basic request and then set its attributes step by step.
