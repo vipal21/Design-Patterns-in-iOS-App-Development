@@ -1,1 +1,1 @@
-# -Design-Patterns-in-iOS-App-Development
+# Design-Patterns-in-iOS-App-Development
